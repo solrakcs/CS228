@@ -7,5 +7,5 @@ print(pygameWindow)
 
 while True:
 	pygameWindow.Prepare(pygameWindow)
-	pass
+	pygameWindow.Draw_Black_Circle(540,360)
 	pygameWindow.Reveal()
