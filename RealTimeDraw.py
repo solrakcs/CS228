@@ -1,5 +1,4 @@
 from pygameWindow import PYGAME_WINDOW
-import constants
 
 
 pygameWindow = PYGAME_WINDOW()
