@@ -1,10 +1,9 @@
-import pygame
 from pygameWindow import PYGAME_WINDOW
 
 
-pygameWindow = PYGAME_WINDOW();
+pygameWindow = PYGAME_WINDOW()
 
-print (pygameWindow)
+print(pygameWindow)
 
-#while True:
+# while True:
 #	print("Draw Something")
