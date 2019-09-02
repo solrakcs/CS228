@@ -10,8 +10,8 @@ y = 360
 
 xMin = 1000.0
 xMax = -1000.0
-yMin = 1000.0
-yMax = -1000.0
+yMin = -1000.0 #I switch the values of yMin and yMax and later on, I change the conditionals of y in the function Handle_Frame(), in order to move the black dot properly.
+yMax = 1000.0
 
 befValue = 0
 
@@ -53,9 +53,9 @@ def Handle_Frame():
 		xMin = x
 	if (x > xMax):
 		xMax = x
-	if (y < yMin):
+	if (y > yMin):
 		yMin = y
-	if (y > yMax):
+	if (y < yMax):
 		yMax = y
 
 	print xMax
