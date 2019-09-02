@@ -24,7 +24,12 @@ import Leap
 #
 
 def Handle_Frame():
-	print frame
+	hand = frame.hands[0]
+	print (hand)
+	fingers = hand.fingers
+	indexFingerList = fingers.finger_type(0)
+	indexFinger = indexFingerList[0]
+	print(indexFinger)
 #
 #
 #pygameWindow = PYGAME_WINDOW()
