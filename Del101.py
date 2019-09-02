@@ -8,6 +8,11 @@ import random
 x = 540
 y = 360
 
+xMin = 1000.0
+xMax = -1000.0
+yMin = 1000.0
+yMax = -1000.0
+
 #def Perturb_Circle_Position(): #I am not gonna include a velocity. 1 works well for me
 #	global x, y
 #
@@ -25,6 +30,8 @@ y = 360
 
 def Handle_Frame():
 	global x, y
+	global xMin, xMax
+	global yMin, yMax
 
 	hand = frame.hands[0]
 	print (hand)
@@ -40,6 +47,32 @@ def Handle_Frame():
 	x = tip[0]
 	y = tip[1]
 
+	if (x < xMin):
+		xMin = x
+	if (x > xMax):
+		xMax = x
+	if (y < yMin):
+		yMin = y
+	if (y > yMax):
+		yMax = y
+
+	print xMax
+	print xMin
+	print yMax
+	print yMin
+
+
+def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
+
+	if
+
+	percentage_scaling = (value - minValue) / (maxValue - minValue)
+	return ((newMaxValue - newMinValue) * percentage_scaling) + newMinValue
+
+
+
+		
+
 pygameWindow = PYGAME_WINDOW()
 
 print(pygameWindow)
@@ -53,6 +86,11 @@ while True:
 	frame = controller.frame()
 	if not (frame.hands.is_empty > 0):
 		 Handle_Frame()
+	pygameX = Scale(x, xMin, xMax, 0, 1080)
+	pygameY = Scale(y, yMin, yMax, 0, 720)
+	print pygameX
+	print pygameY
+
 
 	pygameWindow.Reveal()
 
