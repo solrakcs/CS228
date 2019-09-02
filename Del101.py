@@ -22,6 +22,9 @@ import Leap
 #	else:
 #		y += 1
 #
+
+def Handle_Frame():
+	print frame
 #
 #
 #pygameWindow = PYGAME_WINDOW()
@@ -35,6 +38,9 @@ while True:
 #	Perturb_Circle_Position()
 #	pygameWindow.Draw_Black_Circle(x,y)
 	frame = controller.frame()
+	if not (frame.hands.is_empty > 0):
+		 Handle_Frame()
+
 #	pygameWindow.Reveal()
 
 
