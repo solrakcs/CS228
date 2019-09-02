@@ -13,6 +13,8 @@ xMax = -1000.0
 yMin = 1000.0
 yMax = -1000.0
 
+befValue = 0
+
 #def Perturb_Circle_Position(): #I am not gonna include a velocity. 1 works well for me
 #	global x, y
 #
@@ -64,10 +66,14 @@ def Handle_Frame():
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
 
-	if
+	global befValue
+
+	if maxValue == minValue:
+		return befValue
 
 	percentage_scaling = (value - minValue) / (maxValue - minValue)
-	return ((newMaxValue - newMinValue) * percentage_scaling) + newMinValue
+	befValue = ((newMaxValue - newMinValue) * percentage_scaling) + newMinValue
+	return befValue
 
 
 
@@ -80,18 +86,16 @@ print(pygameWindow)
 controller = Leap.Controller()
 
 while True:
-	pygameWindow.Prepare(pygameWindow)
-	#Perturb_Circle_Position()
-	pygameWindow.Draw_Black_Circle(int(x),int(y))
-	frame = controller.frame()
-	if not (frame.hands.is_empty > 0):
-		 Handle_Frame()
 	pygameX = Scale(x, xMin, xMax, 0, 1080)
 	pygameY = Scale(y, yMin, yMax, 0, 720)
 	print pygameX
 	print pygameY
-
-
+	pygameWindow.Prepare(pygameWindow)
+	#Perturb_Circle_Position()
+	pygameWindow.Draw_Black_Circle(int(pygameX),int(pygameY))
+	frame = controller.frame()
+	if not (frame.hands.is_empty > 0):
+		 Handle_Frame()
 	pygameWindow.Reveal()
 
 
