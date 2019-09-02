@@ -1,7 +1,6 @@
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, "..")
 import Leap
-
 
 #from pygameWindow import PYGAME_WINDOW
 #import random
@@ -29,10 +28,13 @@ import Leap
 
 #print(pygameWindow)
 
-#while True:
+controller = Leap.Controller()
+
+while True:
 #	pygameWindow.Prepare(pygameWindow)
 #	Perturb_Circle_Position()
 #	pygameWindow.Draw_Black_Circle(x,y)
+	frame = controller.frame()
 #	pygameWindow.Reveal()
 
 
