@@ -91,11 +91,11 @@ while True:
 	print pygameX
 	print pygameY
 	pygameWindow.Prepare(pygameWindow)
-	#Perturb_Circle_Position()
-	pygameWindow.Draw_Black_Circle(int(pygameX),int(pygameY))
-	frame = controller.frame()
-	if not (frame.hands.is_empty > 0):
-		 Handle_Frame()
+	##Perturb_Circle_Position()
+	#pygameWindow.Draw_Black_Circle(int(pygameX),int(pygameY))
+	#frame = controller.frame()
+	#if not (frame.hands.is_empty > 0):
+	#	 Handle_Frame()
 	pygameWindow.Reveal()
 
 
