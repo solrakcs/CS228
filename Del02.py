@@ -15,6 +15,7 @@ yMax = 1000.0
 
 befValue = 0
 
+
 #def Perturb_Circle_Position(): #I am not gonna include a velocity. 1 works well for me
 #	global x, y
 #
@@ -31,13 +32,14 @@ befValue = 0
 
 
 def Handle_Frame():
-	#global x, y
-	#global xMin, xMax
-	#global yMin, yMax
+	global x, y
+	global xMin, xMax
+	global yMin, yMax
 
-	#hand = frame.hands[0]
+	hand = frame.hands[0]
 	#print (hand)
-	#fingers = hand.fingers
+	fingers = hand.fingers
+	print(fingers)
 	#indexFingerList = fingers.finger_type(0)
 	#indexFinger = indexFingerList[0]
 	#distalPhalanx = indexFinger.bone(3)
