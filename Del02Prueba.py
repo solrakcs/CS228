@@ -29,23 +29,30 @@ befValue = 0
 #	else:
 #		y += 1
 
+def Handle_Bone(b):
+	bone = finger.bone(b)
+	print(bone)
+
+
+def Handle_Finger(finger):
+	for b in range(4):
+		Handle_Bone(b)
+			
+
 
 def Handle_Frame():
 	global x, y
 	global xMin, xMax
 	global yMin, yMax
+	global finger
 
 	hand = frame.hands[0]
 	#print (hand)
 	fingers = hand.fingers
 	length = len(fingers) 
-	nBones = 4
 	for i in range(length):
 		finger = fingers[i]
-		for variable in range(5):
-			for b in range(nBones):
-				bone = finger.bone(nBones)
-				print(bone)
+		Handle_Finger(finger)
 	exit()	
 	#indexFingerList = fingers.finger_type(0)
 	#indexFinger = indexFingerList[0]
