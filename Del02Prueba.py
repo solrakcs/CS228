@@ -31,14 +31,15 @@ befValue = 0
 
 
 def Handle_Frame():
-	#global x, y
-	#global xMin, xMax
-	#global yMin, yMax
+	global x, y
+	global xMin, xMax
+	global yMin, yMax
 
-	#hand = frame.hands[0]
-	##print (hand)
-	#fingers = hand.fingers
-	#indexFingerList = fingers.finger_type(0)
+	hand = frame.hands[0]
+	#print (hand)
+	fingers = hand.fingers
+	print(fingers)
+	indexFingerList = fingers.finger_type(0)
 	#indexFinger = indexFingerList[0]
 	#distalPhalanx = indexFinger.bone(3)
 	#print(distalPhalanx)
