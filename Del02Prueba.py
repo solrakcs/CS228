@@ -31,37 +31,37 @@ befValue = 0
 
 
 def Handle_Frame():
-	global x, y
-	global xMin, xMax
-	global yMin, yMax
+	#global x, y
+	#global xMin, xMax
+	#global yMin, yMax
 
-	hand = frame.hands[0]
-	print (hand)
-	fingers = hand.fingers
-	indexFingerList = fingers.finger_type(0)
-	indexFinger = indexFingerList[0]
-	distalPhalanx = indexFinger.bone(3)
-	print(distalPhalanx)
-	distalPhalanx = indexFinger.bone(3)
-	tip = distalPhalanx.next_joint
-	print(tip)
+	#hand = frame.hands[0]
+	##print (hand)
+	#fingers = hand.fingers
+	#indexFingerList = fingers.finger_type(0)
+	#indexFinger = indexFingerList[0]
+	#distalPhalanx = indexFinger.bone(3)
+	#print(distalPhalanx)
+	#distalPhalanx = indexFinger.bone(3)
+	#tip = distalPhalanx.next_joint
+	#print(tip)
+	#x = tip[0]
+	#y = tip[1]
+	#if (x < xMin):
+	#	xMin = x
+	#if (x > xMax):
+	#	xMax = x
+	#if (y > yMin):
+	#	yMin = y
+	#if (y < yMax):
+	#	yMax = y
 
-	x = tip[0]
-	y = tip[1]
+	#print xMax
+	#print xMin
+	#print yMax
+	#print yMin
 
-	if (x < xMin):
-		xMin = x
-	if (x > xMax):
-		xMax = x
-	if (y > yMin):
-		yMin = y
-	if (y < yMax):
-		yMax = y
-
-	print xMax
-	print xMin
-	print yMax
-	print yMin
+	pass
 
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
@@ -88,14 +88,14 @@ controller = Leap.Controller()
 while True:
 	pygameX = Scale(x, xMin, xMax, 0, 1080)
 	pygameY = Scale(y, yMin, yMax, 0, 720)
-	print pygameX
-	print pygameY
+	#print pygameX
+	#print pygameY
 	pygameWindow.Prepare(pygameWindow)
 	##Perturb_Circle_Position()
 	#pygameWindow.Draw_Black_Circle(int(pygameX),int(pygameY))
-	#frame = controller.frame()
-	#if not (frame.hands.is_empty > 0):
-	#	 Handle_Frame()
+	frame = controller.frame()
+	if not (frame.hands.is_empty > 0):
+		 Handle_Frame()
 	pygameWindow.Reveal()
 
 
