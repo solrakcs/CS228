@@ -42,7 +42,7 @@ def Handle_Frame():
 	nBones = 4
 	for i in range(length):
 		finger = fingers[i]
-		for finger in range(5):
+		for variable in range(5):
 			for b in range(nBones):
 				bone = finger.bone(nBones)
 				print(bone)
