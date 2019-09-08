@@ -38,8 +38,11 @@ def Handle_Frame():
 	hand = frame.hands[0]
 	#print (hand)
 	fingers = hand.fingers
-	print(fingers)
-	indexFingerList = fingers.finger_type(0)
+	length = len(fingers) 
+	for i in range(length):
+		print(fingers[i])
+	exit()
+	#indexFingerList = fingers.finger_type(0)
 	#indexFinger = indexFingerList[0]
 	#distalPhalanx = indexFinger.bone(3)
 	#print(distalPhalanx)
