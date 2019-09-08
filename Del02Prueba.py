@@ -29,9 +29,24 @@ befValue = 0
 #	else:
 #		y += 1
 
+def Handle_Vector_From_Leap(v):
+	xBase = base[0]
+	yBase = base[1]
+	xTip = tip[0]
+	yTip = tip[1]
+
+
 def Handle_Bone(b):
+	global bone
+	global base, tip
+
 	bone = finger.bone(b)
-	print(bone)
+	base = bone.prev_joint
+	tip = bone.next_joint
+	Handle_Vector_From_Leap(base)
+	Handle_Vector_From_Leap(tip)
+	print(base)
+	print(tip)
 
 
 def Handle_Finger(finger):
