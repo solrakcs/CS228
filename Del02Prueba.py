@@ -8,10 +8,10 @@ import pygame
 x = 540
 y = 360
 
-xMin = 1000.0
-xMax = -1000.0
-yMin = -1000.0 #I switch the values of yMin and yMax and later on, I change the conditionals of y in the function Handle_Frame(), in order to move the black dot properly.
-yMax = 1000.0
+xMin = 100000000.0
+xMax = -100000000.0
+yMin = -100000000.0 #I switch the values of yMin and yMax and later on, I change the conditionals of y in the function Handle_Frame(), in order to move the black dot properly.
+yMax = 100000000.0
 
 befValue = 0
 
@@ -81,22 +81,19 @@ def Handle_Frame():
 	#print(tip)
 	#x = tip[0]
 	#y = tip[1]
-	#if (x < xMin):
-	#	xMin = x
-	#if (x > xMax):
-	#	xMax = x
-	#if (y > yMin):
-	#	yMin = y
-	#if (y < yMax):
-	#	yMax = y
+	if (x < xMin):
+		xMin = x
+	if (x > xMax):
+		xMax = x
+	if (y > yMin):
+		yMin = y
+	if (y < yMax):
+		yMax = y
 
 	#print xMax
 	#print xMin
 	#print yMax
 	#print yMin
-
-	pass
-
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
 
@@ -128,8 +125,15 @@ while True:
 	##Perturb_Circle_Position()
 	#pygameWindow.Draw_Black_Circle(int(pygameX),int(pygameY))
 	frame = controller.frame()
+	for event in pygame.event.get(): #With this for loop pygame window do not crash
+		if event.type == pygame.QUIT:
+			sys.exit(0)
 	if not (frame.hands.is_empty > 0):
 		 Handle_Frame()
+		 
 	pygameWindow.Reveal()
 
 
+
+
+    
