@@ -1,9 +1,9 @@
 import sys
 sys.path.insert(0, "..")
 import Leap
-
 from pygameWindow import PYGAME_WINDOW
 import random
+import pygame
 
 x = 540
 y = 360
@@ -29,7 +29,10 @@ befValue = 0
 #	else:
 #		y += 1
 
+
 def Handle_Vector_From_Leap(v):
+	global xBase, yBase, xTip, yTip
+
 	xBase = base[0]
 	yBase = base[1]
 	xTip = tip[0]
@@ -45,8 +48,9 @@ def Handle_Bone(b):
 	tip = bone.next_joint
 	Handle_Vector_From_Leap(base)
 	Handle_Vector_From_Leap(tip)
-	print(base)
-	print(tip)
+	pygameWindow.Draw_Black_Line(xBase, yBase, xTip, yTip)
+	#print(base)
+	#print(tip)
 
 
 def Handle_Finger(finger):
@@ -68,7 +72,6 @@ def Handle_Frame():
 	for i in range(length):
 		finger = fingers[i]
 		Handle_Finger(finger)
-	exit()	
 	#indexFingerList = fingers.finger_type(0)
 	#indexFinger = indexFingerList[0]
 	#distalPhalanx = indexFinger.bone(3)

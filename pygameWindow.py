@@ -19,7 +19,8 @@ class PYGAME_WINDOW:
 	def Draw_Black_Circle(self, x, y):
 		pygame.draw.circle(self.screen, (0,0,0), (x, y), 7) #The first value is the surface, the second value is that the circle will be in black, the third value is the position where the circle will be drawn and the last value is the radius of the circle
 
-
+	def Draw_Black_Line(self, xBase, yBase, xTip, yTip):
+		pygame.draw.line(self.screen, (0, 0, 0), (xBase, yBase), (xTip, yTip), 5)
 	
 
 
