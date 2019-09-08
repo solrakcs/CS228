@@ -34,9 +34,9 @@ def Handle_Vector_From_Leap(v):
 	global xBase, yBase, xTip, yTip
 
 	xBase = base[0]
-	yBase = base[1]
+	yBase = base[2]
 	xTip = tip[0]
-	yTip = tip[1]
+	yTip = tip[2]
 
 
 def Handle_Bone(b):
@@ -117,8 +117,11 @@ print(pygameWindow)
 controller = Leap.Controller()
 
 while True:
-	pygameX = Scale(x, xMin, xMax, 0, 1080)
-	pygameY = Scale(y, yMin, yMax, 0, 720)
+
+	pygameXBase = Scale(xBase, xMin, xMax, 0, 1080)
+	pygameYBase = Scale(yBase, yMin, yMax, 0, 720)
+	pygameXTip = Scale(xTip, xMin, xMax, 0, 1080)
+	pygameYTip = Scale(yTip, yMin, yMax, 0, 720)
 	#print pygameX
 	#print pygameY
 	pygameWindow.Prepare(pygameWindow)
