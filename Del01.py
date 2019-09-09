@@ -86,10 +86,8 @@ print(pygameWindow)
 controller = Leap.Controller()
 
 while True:
-	pygameX = Scale(xBase, xMin, xMax, 0, 1080)
-	pygameY = Scale(yBase, yMin, yMax, 0, 720)
-	pygameX = Scale(xBase, xMin, xMax, 0, 1080)
-	pygameY = Scale(yBase, yMin, yMax, 0, 720)
+	pygameX = Scale(x, xMin, xMax, 0, 1080)
+	pygameY = Scale(y, yMin, yMax, 0, 720)
 	print pygameX
 	print pygameY
 	pygameWindow.Prepare(pygameWindow)

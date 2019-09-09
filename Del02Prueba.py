@@ -15,19 +15,11 @@ yMax = -1000.0
 
 befValue = 0
 
-#def Perturb_Circle_Position(): #I am not gonna include a velocity. 1 works well for me
-#	global x, y
-#
-#	fourSidedDieRoll = random.randint(1, 4)
-#	
-#	if fourSidedDieRoll == 1:
-#		x -= 1
-#	elif fourSidedDieRoll == 2:
-#		x += 1
-#	elif fourSidedDieRoll == 3:
-#		y -= 1
-#	else:
-#		y += 1
+xBase = 540
+yBase = 360
+xTip = 540
+yTip = 360
+
 
 
 def Handle_Vector_From_Leap(v, xMin, xMax, yMin, yMax):
@@ -66,8 +58,7 @@ def Handle_Bone(b):
 	Handle_Vector_From_Leap(base, xMin, xMax, yMin, yMax)
 	Handle_Vector_From_Leap(tip, xMin, xMax, yMin, yMax)
 	pygameWindow.Draw_Black_Line(xBase, yBase, xTip, yTip)
-	#print(base)
-	#print(tip)
+
 
 
 def Handle_Finger(finger):
@@ -98,19 +89,15 @@ def Handle_Frame():
 	#print(tip)
 	#x = tip[0]
 	#y = tip[1]
-	if (x < xMin):
-		xMin = x
-	if (x > xMax):
-		xMax = x
-	if (y > yMin):
-		yMin = y
-	if (y < yMax):
-		yMax = y
+	#if (x < xMin):
+	#	xMin = x
+	#if (x > xMax):
+	#	xMax = x
+	#if (y > yMin):
+	#	yMin = y
+	#if (y < yMax):
+	#	yMax = y
 
-	#print xMax
-	#print xMin
-	#print yMax
-	#print yMin
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
 
