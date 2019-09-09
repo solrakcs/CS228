@@ -8,10 +8,10 @@ import pygame
 x = 540
 y = 360
 
-xMin = 100000000.0
-xMax = -100000000.0
-yMin = -100000000.0 #I switch the values of yMin and yMax and later on, I change the conditionals of y in the function Handle_Frame(), in order to move the black dot properly.
-yMax = 100000000.0
+xMin = 1000.0
+xMax = -1000.0
+yMin = 1000.0 #I switch the values of yMin and yMax and later on, I change the conditionals of y in the function Handle_Frame(), in order to move the black dot properly.
+yMax = -1000.0
 
 befValue = 0
 
@@ -30,13 +30,30 @@ befValue = 0
 #		y += 1
 
 
-def Handle_Vector_From_Leap(v):
+def Handle_Vector_From_Leap(v, xMin, xMax, yMin, yMax):
 	global xBase, yBase, xTip, yTip
 
 	xBase = base[0]
 	yBase = base[2]
 	xTip = tip[0]
 	yTip = tip[2]
+
+	if (xTip < xMin):
+		xMin = xTip
+	if (xTip > xMax):
+		xMax = xTip
+	if (yTip > yMin):
+		yMin = yTip
+	if (yTip < yMax):
+		yMax = yTip
+	if (xBase < xMin):
+		xMin = xBase
+	if (xBase > xMax):
+		xMax = xBase
+	if (yBase > yMin):
+		yMin = yBase
+	if (yBase < yMax):
+		yMax = yBase
 
 
 def Handle_Bone(b):
@@ -46,8 +63,8 @@ def Handle_Bone(b):
 	bone = finger.bone(b)
 	base = bone.prev_joint
 	tip = bone.next_joint
-	Handle_Vector_From_Leap(base)
-	Handle_Vector_From_Leap(tip)
+	Handle_Vector_From_Leap(base, xMin, xMax, yMin, yMax)
+	Handle_Vector_From_Leap(tip, xMin, xMax, yMin, yMax)
 	pygameWindow.Draw_Black_Line(xBase, yBase, xTip, yTip)
 	#print(base)
 	#print(tip)
@@ -118,10 +135,10 @@ controller = Leap.Controller()
 
 while True:
 
-	#pygameXBase = Scale(xBase, xMin, xMax, 0, 1080)
-	#pygameYBase = Scale(yBase, yMin, yMax, 0, 720)
-	#pygameXTip = Scale(xTip, xMin, xMax, 0, 1080)
-	#pygameYTip = Scale(yTip, yMin, yMax, 0, 720)
+	pygameXBase = Scale(xBase, xMin, xMax, 0, 1080)
+	pygameYBase = Scale(yBase, yMin, yMax, 0, 720)
+	pygameXTip = Scale(xTip, xMin, xMax, 0, 1080)
+	pygameYTip = Scale(yTip, yMin, yMax, 0, 720)
 	#print pygameX
 	#print pygameY
 	pygameWindow.Prepare(pygameWindow)
