@@ -28,9 +28,9 @@ def Handle_Vector_From_Leap(v):
 		xMin = x
 	if (x > xMax):
 		xMax = x
-	if (y > yMin):
+	if (y < yMin):
 		yMin = y
-	if (y < yMax):
+	if (y > yMax):
 		yMax = y
 
 def Handle_Bone(b):
