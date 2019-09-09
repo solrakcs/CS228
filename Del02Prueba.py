@@ -46,7 +46,7 @@ def Handle_Bone(b):
 	Handle_Vector_From_Leap(tip)
 	pygameXTip = Scale(x, xMin, xMax, 0, 1080)
 	pygameYTip = Scale(y, yMin, yMax, 0, 720)
-	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip)
+	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
 	
 
 
@@ -62,29 +62,11 @@ def Handle_Frame():
 	global finger
 
 	hand = frame.hands[0]
-	#print (hand)
 	fingers = hand.fingers
 	length = len(fingers) 
 	for i in range(length):
 		finger = fingers[i]
 		Handle_Finger(finger)
-	#indexFingerList = fingers.finger_type(0)
-	#indexFinger = indexFingerList[0]
-	#distalPhalanx = indexFinger.bone(3)
-	#print(distalPhalanx)
-	#distalPhalanx = indexFinger.bone(3)
-	#tip = distalPhalanx.next_joint
-	#print(tip)
-	#x = tip[0]
-	#y = tip[1]
-	#if (x < xMin):
-	#	xMin = x
-	#if (x > xMax):
-	#	xMax = x
-	#if (y > yMin):
-	#	yMin = y
-	#if (y < yMax):
-	#	yMax = y
 
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
@@ -110,11 +92,7 @@ controller = Leap.Controller()
 
 while True:
 
-	#print pygameX
-	#print pygameY
 	pygameWindow.Prepare(pygameWindow)
-	##Perturb_Circle_Position()
-	#pygameWindow.Draw_Black_Circle(int(pygameX),int(pygameY))
 	frame = controller.frame()
 	for event in pygame.event.get(): #With this for loop pygame window do not crash
 		if event.type == pygame.QUIT:
