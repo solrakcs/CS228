@@ -8,45 +8,30 @@ import pygame
 x = 540
 y = 360
 
-xMin = 1000.0
-xMax = -1000.0
-yMin = 1000.0 #I switch the values of yMin and yMax and later on, I change the conditionals of y in the function Handle_Frame(), in order to move the black dot properly.
-yMax = -1000.0
-
 befValue = 0
 
-xBase = 540
-yBase = 360
-xTip = 540
-yTip = 360
+xMin = 1000.0
+xMax = -1000.0
+yMin = 1000.0 
+yMax = -1000.0
 
 
+def Handle_Vector_From_Leap(v):
+	global xMin, xMax, yMin, yMax
+	global x, y
 
-def Handle_Vector_From_Leap(v, xMin, xMax, yMin, yMax):
-	global xBase, yBase, xTip, yTip
 
-	xBase = base[0]
-	yBase = base[2]
-	xTip = tip[0]
-	yTip = tip[2]
+	x = v[0]
+	y = v[2]
 
-	if (xTip < xMin):
-		xMin = xTip
-	if (xTip > xMax):
-		xMax = xTip
-	if (yTip > yMin):
-		yMin = yTip
-	if (yTip < yMax):
-		yMax = yTip
-	if (xBase < xMin):
-		xMin = xBase
-	if (xBase > xMax):
-		xMax = xBase
-	if (yBase > yMin):
-		yMin = yBase
-	if (yBase < yMax):
-		yMax = yBase
-
+	if (x < xMin):
+		xMin = x
+	if (x > xMax):
+		xMax = x
+	if (y > yMin):
+		yMin = y
+	if (y < yMax):
+		yMax = y
 
 def Handle_Bone(b):
 	global bone
@@ -55,9 +40,14 @@ def Handle_Bone(b):
 	bone = finger.bone(b)
 	base = bone.prev_joint
 	tip = bone.next_joint
-	Handle_Vector_From_Leap(base, xMin, xMax, yMin, yMax)
-	Handle_Vector_From_Leap(tip, xMin, xMax, yMin, yMax)
-	pygameWindow.Draw_Black_Line(xBase, yBase, xTip, yTip)
+	Handle_Vector_From_Leap(base)
+	pygameXBase = Scale(x, xMin, xMax, 0, 1080)
+	pygameYBase = Scale(y, yMin, yMax, 0, 720)
+	Handle_Vector_From_Leap(tip)
+	pygameXTip = Scale(x, xMin, xMax, 0, 1080)
+	pygameYTip = Scale(y, yMin, yMax, 0, 720)
+	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip)
+	
 
 
 
@@ -69,8 +59,6 @@ def Handle_Finger(finger):
 
 def Handle_Frame():
 	global x, y
-	global xMin, xMax
-	global yMin, yMax
 	global finger
 
 	hand = frame.hands[0]
@@ -122,10 +110,6 @@ controller = Leap.Controller()
 
 while True:
 
-	pygameXBase = Scale(xBase, xMin, xMax, 0, 1080)
-	pygameYBase = Scale(yBase, yMin, yMax, 0, 720)
-	pygameXTip = Scale(xTip, xMin, xMax, 0, 1080)
-	pygameYTip = Scale(yTip, yMin, yMax, 0, 720)
 	#print pygameX
 	#print pygameY
 	pygameWindow.Prepare(pygameWindow)
