@@ -11,9 +11,6 @@ new_derivable = DERIVABLE()
 exit()
 
 pygameWindow = PYGAME_WINDOW()
-
-print(pygameWindow)
-
 controller = Leap.Controller()
 
 while True:
