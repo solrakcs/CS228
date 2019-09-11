@@ -7,7 +7,7 @@ import pygame
 from Derivable import DERIVABLE
 
 
-DERIVABLE()
+new_derivable = DERIVABLE()
 exit()
 
 
