@@ -10,17 +10,6 @@ from Derivable import DERIVABLE
 new_derivable = DERIVABLE()
 exit()
 
-
-#VARIABLES
-x = 540
-y = 360
-befValue = 0
-xMin = 1000.0
-xMax = -1000.0
-yMin = 1000.0 
-yMax = -1000.0
-
-
 def Handle_Vector_From_Leap(v):
 	global xMin, xMax, yMin, yMax
 	global x, y
