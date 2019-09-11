@@ -101,8 +101,3 @@ while True:
 		 Handle_Frame()
 		 
 	pygameWindow.Reveal()
-
-
-
-
-    
