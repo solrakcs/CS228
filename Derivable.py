@@ -99,16 +99,23 @@ class DERIVABLE:
 
 	def Run_Forever(self):
 
-		global frame
-
 		while True:
 
-			pygameWindow.Prepare(pygameWindow)
-			frame = controller.frame()
-			for event in pygame.event.get(): #With this for loop pygame window do not crash
-				if event.type == pygame.QUIT:
-					sys.exit(0)
-			if not (frame.hands.is_empty > 0):
-				 self.Handle_Frame()
-				 
-			pygameWindow.Reveal()
+			self.Run_Once()
+
+
+	def Run_Once(self):
+
+		global frame
+
+		pygameWindow.Prepare(pygameWindow)
+		frame = controller.frame()
+		for event in pygame.event.get(): #With this for loop pygame window do not crash
+			if event.type == pygame.QUIT:
+				sys.exit(0)
+		if not (frame.hands.is_empty > 0):
+			 self.Handle_Frame()
+			 
+		pygameWindow.Reveal()
+
+
