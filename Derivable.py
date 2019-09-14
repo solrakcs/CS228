@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, "..")
 import Leap
-from pygameWindow import PYGAME_WINDOW
+from pygameWindow_Del03 import PYGAME_WINDOW
 import random
 import pygame
 
@@ -61,7 +61,7 @@ class DERIVABLE:
 		befValue = ((newMaxValue - newMinValue) * percentage_scaling) + newMinValue
 		return befValue	
 
-	def Handle_Bone(self, b):
+	def Handle_Bone(self, b, c):
 		global bone
 		global base, tip
 	
@@ -74,27 +74,35 @@ class DERIVABLE:
 		self.Handle_Vector_From_Leap(tip)
 		pygameXTip = self.Scale(x, xMin, xMax, 0, 1080)
 		pygameYTip = self.Scale(y, yMin, yMax, 0, 720)
-		pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
+		pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b, c)
 		
 	
 	
 	
-	def Handle_Finger(self, finger):
+	def Handle_Finger(self, finger, c):
 		for b in range(4):
-			self.Handle_Bone(b)
+			self.Handle_Bone(b, c)
 				
 	
 	
 	def Handle_Frame(self):
 		global x, y
 		global finger
-	
+
+		recording = 0
+
+		handList = frame.hands
+		self.numberofHands = len(handList)
 		hand = frame.hands[0]
 		fingers = hand.fingers
 		length = len(fingers) 
 		for i in range(length):
 			finger = fingers[i]
-			self.Handle_Finger(finger)
+			if(self.numberofHands == 1):
+				self.Handle_Finger(finger, 1)
+			if(self.numberofHands == 2):
+				self.Handle_Finger(finger, 2)
+
 	
 
 	def Run_Forever(self):
