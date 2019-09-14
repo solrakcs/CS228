@@ -1,35 +1,53 @@
+import sys
+sys.path.insert(0, "..")
+import Leap
+from pygameWindow import PYGAME_WINDOW
+import random
+import pygame
+
 class DERIVABLE:
 
-	def __init__(self, xMin, xMax, yMin, yMax, x, y, befValue):
+
+	x = 540
+	y = 360
+
+	befValue = 0
+
+	xMin = 1000.0
+	xMax = -1000.0
+	yMin = 1000.0 
+	yMax = -1000.0
+
+
+	global pygameWindow, controller, Run_Once
+	pygameWindow = PYGAME_WINDOW()
+	controller = Leap.Controller()
+
+
+	def __init__(self):
 		
-		self.xMin = 1000.0
-		self.xMax = -1000.0
-		self.yMin = 1000.0 
-		self.yMax = -1000.0
-		self.x = 540
-		self.y = 360
-		self.befValue = 0
+		pass
 
 
 
-	def Handle_Vector_From_Leap(v):
-	global xMin, xMax, yMin, yMax
-	global x, y
+	def Handle_Vector_From_Leap(self, v):
+		global xMin, xMax, yMin, yMax
+		global x, y
 
 
-	x = v[0]
-	y = v[2]
+		x = v[0]
+		y = v[2]
 
-	if (x < xMin):
-		xMin = x
-	if (x > xMax):
-		xMax = x
-	if (y < yMin):
-		yMin = y
-	if (y > yMax):
-		yMax = y
+		if (x < xMin):
+			xMin = x
+		if (x > xMax):
+			xMax = x
+		if (y < yMin):
+			yMin = y
+		if (y > yMax):
+			yMax = y
 	
-	def Handle_Bone(b):
+	def Handle_Bone(self, b):
 		global bone
 		global base, tip
 	
@@ -47,13 +65,13 @@ class DERIVABLE:
 
 
 
-	def Handle_Finger(finger):
+	def Handle_Finger(self, finger):
 		for b in range(4):
 			Handle_Bone(b)
 				
 	
 	
-	def Handle_Frame():
+	def Handle_Frame(self):
 		global x, y
 		global finger
 	
@@ -65,7 +83,7 @@ class DERIVABLE:
 			Handle_Finger(finger)
 	
 	
-	def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
+	def Scale(self, value, minValue, maxValue, newMinValue, newMaxValue):
 	
 		global befValue
 	
@@ -75,3 +93,23 @@ class DERIVABLE:
 		percentage_scaling = (value - minValue) / (maxValue - minValue)
 		befValue = ((newMaxValue - newMinValue) * percentage_scaling) + newMinValue
 		return befValue	
+
+	def Run_Once(self):
+
+		pygameWindow.Prepare(pygameWindow)
+		frame = controller.frame()
+		for event in pygame.event.get(): #With this for loop pygame window do not crash
+			if event.type == pygame.QUIT:
+				sys.exit(0)
+			if not (frame.hands.is_empty > 0):
+		 		Handle_Frame()
+		 
+		pygameWindow.Reveal()
+
+
+	def Run_Forever(self):
+
+		while True:
+
+			Run_Once(self)
+			
