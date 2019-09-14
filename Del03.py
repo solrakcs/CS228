@@ -9,5 +9,3 @@ from Derivable import DERIVABLE
 
 new_derivable = DERIVABLE()
 new_derivable.Run_Forever()
-
-
