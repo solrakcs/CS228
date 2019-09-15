@@ -4,10 +4,11 @@ import Leap
 from pygameWindow_Del03 import PYGAME_WINDOW
 import random
 import pygame
+import numpy as np
 
 class DERIVABLE:
 
-	global x, y, befValue, xMin, xMax, yMin, yMax, pygameWindow, controller
+	global x, y, befValue, xMin, xMax, yMin, yMax, pygameWindow, controller, previousNumberofHands, currentNumberofHands
 
 	x = 540
 	y = 360
@@ -18,6 +19,8 @@ class DERIVABLE:
 	yMax = -1000.0
 	pygameWindow = PYGAME_WINDOW()
 	controller = Leap.Controller()
+	previousNumberofHands = 0
+	currentNumberofHands = 0
 
 
 	def __init__(self, pygameWindow, controller, x, y, befValue, xMin, xMax, yMin, yMax):
@@ -87,21 +90,35 @@ class DERIVABLE:
 	
 	def Handle_Frame(self):
 		global x, y
-		global finger
+		global finger, previousNumberofHands, currentNumberofHands
 
-		recording = 0
+		previousNumberofHands = 0
+		currentNumberofHands = 0
 
-		handList = frame.hands
-		self.numberofHands = len(handList)
 		hand = frame.hands[0]
+		handList = frame.hands
+		nHands = len(handList)
+		if(nHands == 1):
+			currentNumberofHands = 1
+		if(nHands == 2):
+			currentNumberofHands = 2
 		fingers = hand.fingers
 		length = len(fingers) 
 		for i in range(length):
 			finger = fingers[i]
-			if(self.numberofHands == 1):
+			if(currentNumberofHands == 1 and previousNumberofHands == 0):
 				self.Handle_Finger(finger, 1)
-			if(self.numberofHands == 2):
+			if(currentNumberofHands == 2 and previousNumberofHands == 0):
 				self.Handle_Finger(finger, 2)
+			if(currentNumberofHands == 2 and previousNumberofHands == 1):
+				self.Handle_Finger(finger, 2)
+			if(currentNumberofHands == 2 and previousNumberofHands == 2):
+				self.Handle_Finger(finger, 2)
+			if(currentNumberofHands == 1 and previousNumberofHands == 2):
+				self.Recording_Is_Ending()
+				self.Handle_Finger(finger, 2)
+			if(currentNumberofHands == 1 and previousNumberofHands == 1):
+				self.Handle_Finger(finger, 1)
 
 	
 
@@ -125,6 +142,10 @@ class DERIVABLE:
 			 self.Handle_Frame()
 			 
 		pygameWindow.Reveal()
+
+
+	def Recording_Is_Ending():
+		print 'recording is ending'
 
 
 
