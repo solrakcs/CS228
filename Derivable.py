@@ -8,7 +8,7 @@ import numpy as np
 
 class DERIVABLE:
 
-	global x, y, befValue, xMin, xMax, yMin, yMax, pygameWindow, controller, previousNumberofHands, currentNumberofHands
+	global x, y, befValue, xMin, xMax, yMin, yMax, pygameWindow, controller
 
 	x = 540
 	y = 360
@@ -19,9 +19,6 @@ class DERIVABLE:
 	yMax = -1000.0
 	pygameWindow = PYGAME_WINDOW()
 	controller = Leap.Controller()
-	previousNumberofHands = 0
-	currentNumberofHands = 0
-
 
 	def __init__(self, pygameWindow, controller, x, y, befValue, xMin, xMax, yMin, yMax):
 
@@ -109,20 +106,29 @@ class DERIVABLE:
 			if(currentNumberofHands == 1 and previousNumberofHands == 0):
 				self.Handle_Finger(finger, 1)
 			if(currentNumberofHands == 2 and previousNumberofHands == 0):
+				previousNumberofHands = 2
 				self.Handle_Finger(finger, 2)
 			if(currentNumberofHands == 2 and previousNumberofHands == 1):
+				previousNumberofHands = 2
 				self.Handle_Finger(finger, 2)
 			if(currentNumberofHands == 2 and previousNumberofHands == 2):
+				previousNumberofHands = 2
 				self.Handle_Finger(finger, 2)
 			if(currentNumberofHands == 1 and previousNumberofHands == 2):
+				print 'caca'
+				previousNumberofHands = 1
 				self.Recording_Is_Ending()
 				self.Handle_Finger(finger, 2)
 			if(currentNumberofHands == 1 and previousNumberofHands == 1):
+				previousNumberofHands = 1
 				self.Handle_Finger(finger, 1)
+
+		return currentNumberofHands
 
 	
 
 	def Run_Forever(self):
+
 
 		while True:
 
