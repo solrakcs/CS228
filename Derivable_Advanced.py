@@ -22,6 +22,7 @@ class DERIVABLE:
 		self.yMin = yMin
 		self.yMax = yMax
 		self.gestureData = np.zeros((5,4,6),dtype=’f’)
+		self.file = 0
 
 
 	def Handle_Vector_From_Leap(self, v):
@@ -68,6 +69,8 @@ class DERIVABLE:
 	 		self.gestureData[i,j,3] = (x coordinate of the tip of bone j in finger i)
 	 		self.gestureData[i,j,4] = (y coordinate of the tip of bone j in finger i)
 	 		self.gestureData[i,j,5] = (z coordinate of the tip of bone j in finger i)
+
+	 		self.file += 1
 		
 	
 	
@@ -135,7 +138,7 @@ class DERIVABLE:
 
 	def Self.Gesture(self):
 		
-		pickle_out = open("gesture.p","wt")
+		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 2\\LeapSDK\\lib\\CS228\\userData\\gesture"+self.file+".p","wt")
 		pickle.dump(self.gestureData, pickle_out)
 		pickle_out.close()
 
