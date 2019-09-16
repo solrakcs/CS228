@@ -6,6 +6,8 @@ import random
 import pygame
 import numpy as np
 import pickle
+import os
+import shutil
 
 class DERIVABLE:
 
@@ -25,6 +27,7 @@ class DERIVABLE:
 		self.currentNumberofHands = 0
 		self.gestureData = np.zeros((5, 4, 6), dtype = 'f')
 		self.file = 0
+		self.Delete_Create_Directory()
 
 
 	def Handle_Vector_From_Leap(self, v):
@@ -146,3 +149,14 @@ class DERIVABLE:
 		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(self.file)+".p","wb")
 		pickle.dump(self.gestureData, pickle_out)
 		pickle_out.close()
+
+	def Delete_Create_Directory(self):
+
+		shutil.rmtree('C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData')
+
+		dirName = 'userData'
+ 		try:
+		
+   			os.mkdir(dirName)
+		except FileExistsError:
+   			print("Directory " + dirName +  " already exists")
