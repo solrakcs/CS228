@@ -60,6 +60,13 @@ class DERIVABLE:
 		pygameXTip = self.Scale(self.x, self.xMin, self.xMax, 0, 1080)
 		pygameYTip = self.Scale(self.y, self.yMin, self.yMax, 0, 720)
 		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b, c)
+		if self.Recording_Is_Ending():
+			self.gestureData[i,j,0] = (x coordinate of the base of bone j in finger i)
+	 		self.gestureData[i,j,1] = (y coordinate of the base of bone j in finger i)
+	 		self.gestureData[i,j,2] = (z coordinate of the base of bone j in finger i)
+	 		self.gestureData[i,j,3] = (x coordinate of the tip of bone j in finger i)
+	 		self.gestureData[i,j,4] = (y coordinate of the tip of bone j in finger i)
+	 		self.gestureData[i,j,5] = (z coordinate of the tip of bone j in finger i)
 		
 	
 	
@@ -91,8 +98,8 @@ class DERIVABLE:
 				self.Handle_Finger(finger, 1)
 			if(self.currentNumberofHands == 2):
 				self.Handle_Finger(finger, 2)
-			if self.Recording_Is_Ending() == True:
-				print 'recording is ending'
+			if self.Recording_Is_Ending():
+				print(self.gestureData)
 
 	
 
