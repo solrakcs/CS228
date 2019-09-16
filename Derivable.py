@@ -24,6 +24,7 @@ class DERIVABLE:
 		self.previousNumberofHands = 0
 		self.currentNumberofHands = 0
 		self.gestureData = np.zeros((5, 4, 6), dtype = 'f')
+		self.file = 0
 
 
 	def Handle_Vector_From_Leap(self, v):
@@ -65,12 +66,13 @@ class DERIVABLE:
 		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, i, c)
 
 		if self.Recording_Is_Ending() == True:
-				self.gestureData[i,j,0] = base[0]
- 				self.gestureData[i,j,1] = base[1]
- 				self.gestureData[i,j,2] = base[2]
- 				self.gestureData[i,j,3] = tip[0]
- 				self.gestureData[i,j,4] = tip[1]
- 				self.gestureData[i,j,5] = tip[2]
+			self.gestureData[i,j,0] = base[0]
+ 			self.gestureData[i,j,1] = base[1]
+ 			self.gestureData[i,j,2] = base[2]
+ 			self.gestureData[i,j,3] = tip[0]
+ 			self.gestureData[i,j,4] = tip[1]
+ 			self.gestureData[i,j,5] = tip[2]
+
 		
 	
 	
@@ -86,7 +88,7 @@ class DERIVABLE:
 	def Handle_Frame(self):
 		global finger
 
-	
+		printed = 0
 
 		hand = frame.hands[0]
 		handList = frame.hands
@@ -103,9 +105,10 @@ class DERIVABLE:
 				self.Handle_Finger(finger, 1)
 			if(self.currentNumberofHands == 2):
 				self.Handle_Finger(finger, 2)
-			if self.Recording_Is_Ending() == True:
+			if (self.Recording_Is_Ending() == True):
 				print(self.gestureData)
 				self.Save_Gesture()	
+				self.file += 1
 				break
 
 	
@@ -140,6 +143,6 @@ class DERIVABLE:
 
 	def Save_Gesture(self):
 		
-		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData\\gesture.p","wb")
+		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(self.file)+".p","wb")
 		pickle.dump(self.gestureData, pickle_out)
 		pickle_out.close()
