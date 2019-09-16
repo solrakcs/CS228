@@ -5,6 +5,7 @@ from pygameWindow_Del03 import PYGAME_WINDOW
 import random
 import pygame
 import numpy as np
+import pickle
 
 class DERIVABLE:
 
@@ -100,6 +101,7 @@ class DERIVABLE:
 				self.Handle_Finger(finger, 2)
 			if self.Recording_Is_Ending():
 				print(self.gestureData)
+				self.Save_Gesture()
 
 	
 
@@ -130,3 +132,11 @@ class DERIVABLE:
 	def Recording_Is_Ending(self):
 		if(self.currentNumberofHands == 1 and self.previousNumberofHands == 2):
 			return True
+
+	def Self.Gesture(self):
+		
+		pickle_out = open("gesture.p","wt")
+		pickle.dump(self.gestureData, pickle_out)
+		pickle_out.close()
+
+
