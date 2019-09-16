@@ -20,6 +20,8 @@ class DERIVABLE:
 		self.xMax = xMax
 		self.yMin = yMin
 		self.yMax = yMax
+		self.previousNumberofHands = 0
+		self.currentNumberofHands = 0
 
 
 	def Handle_Vector_From_Leap(self, v):
@@ -72,8 +74,7 @@ class DERIVABLE:
 	def Handle_Frame(self):
 		global finger
 
-		self.previousNumberofHands = 0
-		self.currentNumberofHands = 0
+	
 
 		hand = frame.hands[0]
 		handList = frame.hands
@@ -92,6 +93,7 @@ class DERIVABLE:
 				self.Handle_Finger(finger, 2)
 			if self.Recording_Is_Ending() == True:
 				print 'recording is ending'
+				break
 
 	
 
@@ -113,8 +115,8 @@ class DERIVABLE:
 			if event.type == pygame.QUIT:
 				sys.exit(0)
 		if not (frame.hands.is_empty > 0):
-			 self.Handle_Frame()
-			 self.previousNumberofHands = self.currentNumberofHands
+			self.Handle_Frame()
+			self.previousNumberofHands = self.currentNumberofHands
 			 
 		self.pygameWindow.Reveal()
 
