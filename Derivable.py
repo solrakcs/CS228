@@ -22,6 +22,7 @@ class DERIVABLE:
 		self.yMax = yMax
 		self.previousNumberofHands = 0
 		self.currentNumberofHands = 0
+		self.gestureData = np.zeros((5, 4, 6), dtype = 'f')
 
 
 	def Handle_Vector_From_Leap(self, v):
@@ -92,7 +93,7 @@ class DERIVABLE:
 			if(self.currentNumberofHands == 2):
 				self.Handle_Finger(finger, 2)
 			if self.Recording_Is_Ending() == True:
-				print 'recording is ending'
+				print(self.gestureData[0,3,3:6])
 				break
 
 	
