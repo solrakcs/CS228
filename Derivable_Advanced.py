@@ -20,6 +20,7 @@ class DERIVABLE:
 		self.xMax = xMax
 		self.yMin = yMin
 		self.yMax = yMax
+		self.gestureData = np.zeros((5,4,6),dtype=’f’)
 
 
 	def Handle_Vector_From_Leap(self, v):
