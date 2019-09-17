@@ -36,19 +36,25 @@ class READER:
 			if event.type == pygame.QUIT:
 				sys.exit(0)
 
-		for i in range(0, self.numGestures):
+		for x in range(0, self.numGestures-4, 5):
 
 			self.pygameWindow.Prepare(self.pygameWindow)
-			
-			self.Draw_Gesture(i)
-
+			self.Draw_Gesture(x)
+			self.pygameWindow.screen.fill((255, 255, 255))
+			self.Draw_Gesture(x+1)
+			self.pygameWindow.screen.fill((255, 255, 255))
+			self.Draw_Gesture(x+2)
+			self.pygameWindow.screen.fill((255, 255, 255))
+			self.Draw_Gesture(x+3)
+			self.pygameWindow.screen.fill((255, 255, 255))
+			self.Draw_Gesture(x+4)
 			self.pygameWindow.Reveal()
-			time.sleep(0.1)
+			time.sleep(0.5)
 
 
-	def Draw_Gesture(self, i):
+	def Draw_Gesture(self, x):
 		
-		pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(i)+".p", "rb")
+		pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(x)+".p", "rb")
 		gestureData = pickle.load(pickle_in)
 
 		for i in range(5):
