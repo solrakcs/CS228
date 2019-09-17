@@ -66,7 +66,7 @@ class DERIVABLE:
 		self.Handle_Vector_From_Leap(tip)
 		pygameXTip = self.Scale(self.x, self.xMin, self.xMax, 0, 1080)
 		pygameYTip = self.Scale(self.y, self.yMin, self.yMax, 0, 720)
-		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, i, c)
+		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, j, c)
 
 		if self.Recording_Is_Ending() == True:
 			self.gestureData[i,j,0] = base[0]
@@ -74,14 +74,11 @@ class DERIVABLE:
  			self.gestureData[i,j,2] = base[2]
  			self.gestureData[i,j,3] = tip[0]
  			self.gestureData[i,j,4] = tip[1]
- 			self.gestureData[i,j,5] = tip[2]
-
-		
+ 			self.gestureData[i,j,5] = tip[2]	
+				
 	
 	
-	
-	def Handle_Finger(self, finger, c):
-		for i in range(5):
+	def Handle_Finger(self, i, c):
 			for j in range(4):
 				self.Handle_Bone(i, j, c)
 
@@ -105,14 +102,14 @@ class DERIVABLE:
 		for i in range(length):
 			finger = fingers[i]
 			if(self.currentNumberofHands == 1):
-				self.Handle_Finger(finger, 1)
+				self.Handle_Finger(i, 1)
 			if(self.currentNumberofHands == 2):
-				self.Handle_Finger(finger, 2)
+				self.Handle_Finger(i, 2)
 			if (self.Recording_Is_Ending() == True):
 				print(self.gestureData)
 				self.Save_Gesture()	
 				self.file += 1
-				break
+			
 
 	
 
@@ -155,8 +152,5 @@ class DERIVABLE:
 		shutil.rmtree('C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 3\\LeapSDK\\lib\\CS228\\userData')
 
 		dirName = 'userData'
- 		try:
+ 		os.mkdir(dirName)
 		
-   			os.mkdir(dirName)
-		except FileExistsError:
-   			print("Directory " + dirName +  " already exists")

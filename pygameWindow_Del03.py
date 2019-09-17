@@ -42,6 +42,9 @@ class PYGAME_WINDOW:
 				pygame.draw.line(self.screen, (255, 0, 0), (xBase, yBase), (xTip, yTip), 2)
 			else: 
 				pygame.draw.line(self.screen, (255, 0, 0), (xBase, yBase), (xTip, yTip), 1)
+
+		if(color == 3):
+			pygame.draw.line(self.screen, (0, 0, 255), (xBase, yBase), (xTip, yTip), 4)
 	
 
 
