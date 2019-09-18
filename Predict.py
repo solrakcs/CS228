@@ -10,7 +10,15 @@ x = knn.data[:, 0]
 y = knn.data[:, 1]
 trainX = knn.data[::2, 0:2]
 testX = knn.data[1::2, 0:2]
-trainy = knn.target[1::2]
+trainy = knn.target[::2]
+testy = knn.target[1::2]
+
+knn.Use_K_Of(15)
+knn.Fit(trainX,trainy)
+for i in range(75):
+	actualClass = testy[i]
+	prediction = knn.Predict(testX[i,0:2])
+	print(actualClass, prediction)
 
 colors = np.zeros((3,3),dtype='f')
 colors[0,:] = [1,0.5,0.5]
