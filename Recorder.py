@@ -9,7 +9,7 @@ import pickle
 import os
 import shutil
 
-class DERIVABLE:
+class RECORDER:
 
 
 	def __init__(self, pygameWindow, controller, x, y, befValue, xMin, xMax, yMin, yMax):
@@ -25,9 +25,12 @@ class DERIVABLE:
 		self.yMax = yMax
 		self.previousNumberofHands = 0
 		self.currentNumberofHands = 0
-		self.gestureData = np.zeros((5, 4, 6), dtype = 'f')
+		self.numberOfGestures = 100
+		self.gestureIndex = 0
+		self.gestureData = np.zeros((5,4,6,self.numberOfGestures),dtype='f')
 		self.file = 0
 		self.Delete_Create_Directory()
+		
 
 
 	def Handle_Vector_From_Leap(self, v):
@@ -69,12 +72,18 @@ class DERIVABLE:
 		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, j, c)
 
 		if self.Recording_Is_Ending() == True:
-			self.gestureData[i,j,0] = base[0]
- 			self.gestureData[i,j,1] = base[1]
- 			self.gestureData[i,j,2] = base[2]
- 			self.gestureData[i,j,3] = tip[0]
- 			self.gestureData[i,j,4] = tip[1]
- 			self.gestureData[i,j,5] = tip[2]	
+			self.gestureData[i,j,0,self.gestureIndex] = base[0]
+ 			self.gestureData[i,j,1,self.gestureIndex] = base[1]
+ 			self.gestureData[i,j,2,self.gestureIndex] = base[2]
+ 			self.gestureData[i,j,3,self.gestureIndex] = tip[0]
+ 			self.gestureData[i,j,4,self.gestureIndex] = tip[1]
+ 			self.gestureData[i,j,5,self.gestureIndex] = tip[2]	
+
+ 		if self.currentNumberofHands == 2:
+			print('gesture ' + str(self.gestureIndex) + ' stored.')
+			self.gestureIndex = self.gestureIndex + 1
+			if self.gestureIndex == self.numberOfGestures:
+				exit(0)
 				
 	
 	
@@ -109,7 +118,6 @@ class DERIVABLE:
 				print(self.gestureData)
 				self.Save_Gesture()	
 				self.file += 1
-			
 
 	
 
