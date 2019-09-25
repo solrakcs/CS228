@@ -2,7 +2,7 @@ import sys
 sys.path.insert(0, "..")
 import Leap
 from pygameWindow_Del03 import PYGAME_WINDOW
-from Recorder import RECORDER
+from Derivable import DERIVABLE
 import random
 import pygame
 import os
