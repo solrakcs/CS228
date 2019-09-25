@@ -71,7 +71,7 @@ class RECORDER:
 		pygameYTip = self.Scale(self.y, self.yMin, self.yMax, 0, 720)
 		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, j, c)
 
-		if self.Recording_Is_Ending() == True:
+		if self.currentNumberofHands == 2:
 			self.gestureData[i,j,0,self.gestureIndex] = base[0]
  			self.gestureData[i,j,1,self.gestureIndex] = base[1]
  			self.gestureData[i,j,2,self.gestureIndex] = base[2]
@@ -79,13 +79,15 @@ class RECORDER:
  			self.gestureData[i,j,4,self.gestureIndex] = tip[1]
  			self.gestureData[i,j,5,self.gestureIndex] = tip[2]	
 
- 		if self.currentNumberofHands == 2:
+		if self.currentNumberofHands == 2:
+
 			print('gesture ' + str(self.gestureIndex) + ' stored.')
 			self.gestureIndex = self.gestureIndex + 1
 			if self.gestureIndex == self.numberOfGestures:
-				exit(0)
-				
-	
+				print self.gestureData[:,:,:,0]
+				print self.gestureData[:,:,:,99]
+				exit()
+
 	
 	def Handle_Finger(self, i, c):
 			for j in range(4):
