@@ -1,5 +1,6 @@
 import numpy as np 
 import pickle
+from knn import KNN
 
 
 pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData\\train8.dat.p", "rb")
@@ -37,9 +38,28 @@ trainX, trainy = ReshapeData(train8, train9)
 #print trainy.shape
 
 testX, testy = ReshapeData(test8, test9)
-print testX
-print testX.shape
-print testy
-print testy.shape
+#print testX
+#print testX.shape
+#print testy
+#print testy.shape
+
+
+
+knn = KNN()
+knn.Use_K_Of(15)
+
+knn.Fit(trainX,trainy)
+counter = 0
+for row in range(0,2000):
+	prediction = int(knn.Predict(testX[row]))
+	actualClass = int(testy[row])
+
+	if(actualClass == prediction):
+		counter += 1
+
+print(counter)
+percentage = (float(counter)/float(2000))*100
+print(percentage)
+	
 
 
