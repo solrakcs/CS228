@@ -25,7 +25,7 @@ class RECORDER:
 		self.yMax = yMax
 		self.previousNumberofHands = 0
 		self.currentNumberofHands = 0
-		self.numberOfGestures = 100
+		self.numberOfGestures = 1000
 		self.gestureIndex = 0
 		self.gestureData = np.zeros((5,4,6,self.numberOfGestures),dtype='f')
 		self.file = 0
@@ -84,8 +84,7 @@ class RECORDER:
 			print('gesture ' + str(self.gestureIndex) + ' stored.')
 			self.gestureIndex = self.gestureIndex + 1
 			if self.gestureIndex == self.numberOfGestures:
-				print self.gestureData[:,:,:,0]
-				print self.gestureData[:,:,:,99]
+				self.Save_Gesture()	
 				exit()
 
 	
@@ -118,7 +117,6 @@ class RECORDER:
 				self.Handle_Finger(i, 2)
 			if (self.Recording_Is_Ending() == True):
 				print(self.gestureData)
-				self.Save_Gesture()	
 				self.file += 1
 
 	
