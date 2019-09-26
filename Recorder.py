@@ -27,7 +27,7 @@ class RECORDER:
 		self.currentNumberofHands = 0
 		self.numberOfGestures = 1000
 		self.gestureIndex = 0
-		self.gestureData = np.zeros((5,4,6,self.numberOfGestures),dtype='f')
+		#self.gestureData = np.zeros((5,4,6,self.numberOfGestures),dtype='f')
 		self.file = 0
 		self.Delete_Create_Directory()
 		
@@ -72,12 +72,12 @@ class RECORDER:
 		self.pygameWindow.Draw_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, j, c)
 
 		if self.currentNumberofHands == 2:
-			self.gestureData[i,j,0,self.gestureIndex] = base[0]
- 			self.gestureData[i,j,1,self.gestureIndex] = base[1]
- 			self.gestureData[i,j,2,self.gestureIndex] = base[2]
- 			self.gestureData[i,j,3,self.gestureIndex] = tip[0]
- 			self.gestureData[i,j,4,self.gestureIndex] = tip[1]
- 			self.gestureData[i,j,5,self.gestureIndex] = tip[2]	
+			#self.gestureData[i,j,0,self.gestureIndex] = base[0]
+ 			#self.gestureData[i,j,1,self.gestureIndex] = base[1]
+ 			#self.gestureData[i,j,2,self.gestureIndex] = base[2]
+ 			#self.gestureData[i,j,3,self.gestureIndex] = tip[0]
+ 			#self.gestureData[i,j,4,self.gestureIndex] = tip[1]
+ 			#self.gestureData[i,j,5,self.gestureIndex] = tip[2]	
 
 		if self.currentNumberofHands == 2:
 
@@ -116,7 +116,7 @@ class RECORDER:
 			if(self.currentNumberofHands == 2):
 				self.Handle_Finger(i, 2)
 			if (self.Recording_Is_Ending() == True):
-				print(self.gestureData)
+				#print(self.gestureData)
 				self.file += 1
 
 	
@@ -152,7 +152,7 @@ class RECORDER:
 	def Save_Gesture(self):
 		
 		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(self.file)+".p","wb")
-		pickle.dump(self.gestureData, pickle_out)
+		#pickle.dump(self.gestureData, pickle_out)
 		pickle_out.close()
 
 	def Delete_Create_Directory(self):
