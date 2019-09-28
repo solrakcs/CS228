@@ -39,11 +39,19 @@ def ReduceData(X):
 	X = np.delete(X,0,2)
 	X = np.delete(X,0,2)
 
-trainM = ReduceData(train8)
-trainN = ReduceData(train9)
-testM = ReduceData(test8)
-testN = ReduceData(test9)
+def CenterData(X):
 
+	pass
+
+
+ReduceData(train8)
+ReduceData(train9)
+ReduceData(test8)
+ReduceData(test9)
+CenterData(train8)
+CenterData(train9)
+CenterData(test8)
+CenterData(test9)
 
 
 trainX, trainy = ReshapeData(train8, train9)
