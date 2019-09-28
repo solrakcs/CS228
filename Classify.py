@@ -3,6 +3,8 @@ import pickle
 from knn import KNN
 
 
+
+
 pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData\\train8.dat.p", "rb")
 train8 = pickle.load(pickle_in)
 pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData\\train9.dat.p", "rb")
@@ -11,8 +13,6 @@ pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Del
 test8 = pickle.load(pickle_in)
 pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData\\test9.dat.p", "rb")
 test9 = pickle.load(pickle_in)
-
-
 
 def ReshapeData(set1,set2):
 	X = np.zeros((2000,5*4*6),dtype='f')
@@ -29,6 +29,21 @@ def ReshapeData(set1,set2):
 					col = col + 1
 
 	return X, y
+
+
+
+def ReduceData(X):
+	X = np.delete(X,1,1)
+	X = np.delete(X,1,1)
+	X = np.delete(X,0,2)
+	X = np.delete(X,0,2)
+	X = np.delete(X,0,2)
+
+trainM = ReduceData(train8)
+trainN = ReduceData(train9)
+testM = ReduceData(test8)
+testN = ReduceData(test9)
+
 
 
 trainX, trainy = ReshapeData(train8, train9)
