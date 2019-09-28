@@ -15,15 +15,15 @@ pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Del
 test9 = pickle.load(pickle_in)
 
 def ReshapeData(set1,set2):
-	X = np.zeros((2000,5*4*6),dtype='f')
+	X = np.zeros((2000,5*2*3),dtype='f')
 	y = np.zeros(2000, dtype = 'f')
 	for row in range(0,1000):
 		y[row] = 8
 		y[row+1000] = 9
 		col = 0
 		for j in range(0,5):
-			for k in range(0,4):
-				for m in range(0,6):
+			for k in range(0,2):
+				for m in range(0,3):
 					X[row,col] = set1[j,k,m,row]
 					X[row+1000, col] = set2[j,k,m,row]
 					col = col + 1
