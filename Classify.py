@@ -41,7 +41,16 @@ def ReduceData(X):
 
 def CenterData(X):
 
-	pass
+	allXCoordinates = X[:,:,0,:]	
+	meanValue = allXCoordinates.mean()
+	X[:,:,0,:] = allXCoordinates - meanValue
+	allYCoordinates = X[:,:,1,:]	
+	meanValue = allYCoordinates.mean()
+	X[:,:,1,:] = allYCoordinates - meanValue
+	allZCoordinates = X[:,:,2,:]	
+	meanValue = allZCoordinates.mean()
+	X[:,:,2,:] = allZCoordinates - meanValue
+	return X
 
 
 ReduceData(train8)
