@@ -5,13 +5,13 @@ from knn import KNN
 
 
 
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\train8Prueba.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\train8.dat.p", "rb")
 train8 = pickle.load(pickle_in)
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\train9Prueba.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\train9.dat.p", "rb")
 train9 = pickle.load(pickle_in)
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\test8Prueba.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\test8.dat.p", "rb")
 test8 = pickle.load(pickle_in)
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\test9Prueba.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\test9.dat.p", "rb")
 test9 = pickle.load(pickle_in)
 
 def ReshapeData(set1,set2):
@@ -93,5 +93,6 @@ print(counter)
 percentage = (float(counter)/float(2000))*100
 print(percentage)
 	
+pickle.dump(knn, open('userData/classifier.p','wb'))
 
 
