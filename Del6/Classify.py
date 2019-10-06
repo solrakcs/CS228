@@ -13,10 +13,15 @@ pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Del
 test8 = pickle.load(pickle_in)
 pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\test9.dat.p", "rb")
 test9 = pickle.load(pickle_in)
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\Deso_train5.p", "rb")
+train5 = pickle.load(pickle_in)
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\Del6\\userData\\Deso_test5.p", "rb")
+test5 = pickle.load(pickle_in)
 
-def ReshapeData(set1,set2):
-	X = np.zeros((2000,5*2*3),dtype='f')
-	y = np.zeros(2000, dtype = 'f')
+
+def ReshapeData(set1,set2, set3):
+	X = np.zeros((3000,5*2*3),dtype='f')
+	y = np.zeros(3000, dtype = 'f')
 	for row in range(0,1000):
 		y[row] = 8
 		y[row+1000] = 9
@@ -61,15 +66,19 @@ CenterData(train8)
 CenterData(train9)
 CenterData(test8)
 CenterData(test9)
+ReduceData(train5)
+ReduceData(test5)
+CenterData(train5)
+CenterData(test5)
 
 
-trainX, trainy = ReshapeData(train8, train9)
+trainX, trainy = ReshapeData(train8, train9, train5)
 #print trainX
 #print trainX.shape
 #print trainy
 #print trainy.shape
 
-testX, testy = ReshapeData(test8, test9)
+testX, testy = ReshapeData(test8, test9, test5)
 #print testX
 #print testX.shape
 #print testy
