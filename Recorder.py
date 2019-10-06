@@ -146,13 +146,13 @@ class RECORDER:
 
 	def Save_Gesture(self):
 		
-		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(self.file)+".p","wb")
+		pickle_out = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\gesture"+str(self.file)+".p","wb")
 		pickle.dump(self.gestureData, pickle_out)
 		pickle_out.close()
 
 	def Delete_Create_Directory(self):
 
-		shutil.rmtree('C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable 4\\LeapSDK\\lib\\CS228\\userData')
+		shutil.rmtree('C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData')
 
 		dirName = 'userData'
  		os.mkdir(dirName)
