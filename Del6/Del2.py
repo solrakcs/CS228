@@ -5,18 +5,39 @@ from pygameWindow import PYGAME_WINDOW
 import random
 import pygame
 import pickle
+import numpy as np
 
-clf = pickle.load(open('userData/classifier.p','rb'))
 
 x = 540
 y = 360
+
+k = 0
 
 befValue = 0
 
 xMin = 1000.0
 xMax = -1000.0
 yMin = 1000.0 
-yMax = -1000.0
+yMax = -1000.0 
+
+
+clf = pickle.load(open('userData/classifier.p','rb'))
+testData = np.zeros((1,30),dtype='f')
+
+
+
+def CenterData(X):
+
+	allXCoordinates = X[0,::3]
+	meanValue = allXCoordinates.mean()
+	X[0,::3] = allXCoordinates - meanValue
+	allYCoordinates = X[0,1::3]	
+	meanValue = allYCoordinates.mean()
+	X[0,1::3] = allYCoordinates - meanValue
+	allZCoordinates = X[0,2::3]	
+	meanValue = allZCoordinates.mean()
+	X[0,2::3] = allZCoordinates - meanValue
+	return X
 
 
 def Handle_Vector_From_Leap(v):
@@ -39,6 +60,7 @@ def Handle_Vector_From_Leap(v):
 def Handle_Bone(b):
 	global bone
 	global base, tip
+	global k
 
 	bone = finger.bone(b)
 	base = bone.prev_joint
@@ -50,6 +72,12 @@ def Handle_Bone(b):
 	pygameXTip = Scale(x, xMin, xMax, 0, 1080)
 	pygameYTip = Scale(y, yMin, yMax, 0, 720)
 	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
+
+	if (((b==0) or (b==3)) and k <= 27):
+		testData[0,k] = tip[0]
+		testData[0,k+1] = tip[1]
+		testData[0,k+2] = tip[2]
+		k = k + 3
 	
 
 
@@ -63,13 +91,18 @@ def Handle_Finger(finger):
 def Handle_Frame():
 	global x, y
 	global finger
+	global testData
 
 	hand = frame.hands[0]
 	fingers = hand.fingers
-	length = len(fingers) 
+	length = len(fingers)
 	for i in range(length):
 		finger = fingers[i]
 		Handle_Finger(finger)
+
+	testData = CenterData(testData)
+	predictedClass = clf.Predict(testData)
+	print(predictedClass)
 
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
