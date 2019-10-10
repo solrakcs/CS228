@@ -88,9 +88,8 @@ class RECORDER:
 	
 	
 	def Handle_Frame(self):
-		global finger
 
-		printed = 0
+		global finger
 
 		hand = frame.hands[0]
 		handList = frame.hands

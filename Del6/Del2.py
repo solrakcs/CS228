@@ -11,8 +11,6 @@ import numpy as np
 x = 540
 y = 360
 
-k = 0
-
 befValue = 0
 
 xMin = 1000.0
@@ -57,9 +55,10 @@ def Handle_Vector_From_Leap(v):
 	if (y > yMax):
 		yMax = y
 
-def Handle_Bone(b):
+def Handle_Bone(finger, b):
 	global bone
 	global base, tip
+	global testData
 	global k
 
 	bone = finger.bone(b)
@@ -73,7 +72,7 @@ def Handle_Bone(b):
 	pygameYTip = Scale(y, yMin, yMax, 0, 720)
 	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
 
-	if (((b==0) or (b==3)) and k <= 27):
+	if ((b==0) or (b==3)):
 		testData[0,k] = tip[0]
 		testData[0,k+1] = tip[1]
 		testData[0,k+2] = tip[2]
@@ -83,23 +82,24 @@ def Handle_Bone(b):
 
 
 def Handle_Finger(finger):
-	for b in range(4):
-		Handle_Bone(b)
+	for b in range(0, 4):
+		Handle_Bone(finger, b)
 			
 
 
-def Handle_Frame():
-	global x, y
-	global finger
+def Handle_Frame(frame):
 	global testData
+	global k
+
+	k = 0
 
 	hand = frame.hands[0]
 	fingers = hand.fingers
-	length = len(fingers)
-	for i in range(length):
+	for i in range(0, 5):
 		finger = fingers[i]
 		Handle_Finger(finger)
 
+	#print(testData)
 	testData = CenterData(testData)
 	predictedClass = clf.Predict(testData)
 	print(predictedClass)
@@ -134,6 +134,6 @@ while True:
 		if event.type == pygame.QUIT:
 			sys.exit(0)
 	if not (frame.hands.is_empty > 0):
-		 Handle_Frame()
+		 Handle_Frame(frame)
 		 
 	pygameWindow.Reveal()

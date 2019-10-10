@@ -5,13 +5,13 @@ from knn import KNN
 
 
 
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\train8.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\train8.p", "rb")
 train8 = pickle.load(pickle_in)
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\train9.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\train9.p", "rb")
 train9 = pickle.load(pickle_in)
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\test8.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\test8.p", "rb")
 test8 = pickle.load(pickle_in)
-pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\test9.dat.p", "rb")
+pickle_in = open("C:\\Users\\ruths\\Desktop\\2019_UVM_CS228_Castrejon_Carlos_Deliverable_5\\LeapSDK\\lib\\CS228\\userData\\test9.p", "rb")
 test9 = pickle.load(pickle_in)
 
 def ReshapeData(set1,set2):
