@@ -72,11 +72,11 @@ def Handle_Bone(finger, b):
 	pygameYTip = Scale(y, yMin, yMax, 0, 720)
 	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
 
-	if ((b==0) or (b==3)):
-		testData[0,k] = tip[0]
-		testData[0,k+1] = tip[1]
-		testData[0,k+2] = tip[2]
-		k = k + 3
+	#if ((b==0) or (b==3)):
+	#	testData[0,k] = tip[0]
+	#	testData[0,k+1] = tip[1]
+	#	testData[0,k+2] = tip[2]
+	#	k = k + 3
 	
 
 
