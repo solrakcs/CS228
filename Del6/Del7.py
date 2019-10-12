@@ -18,6 +18,8 @@ xMax = -1000.0
 yMin = 1000.0 
 yMax = -1000.0 
 
+programState = 0
+
 
 #clf = pickle.load(open('userData/classifier.p','rb'))
 #testData = np.zeros((1,30),dtype='f')
@@ -117,6 +119,31 @@ def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
 	return befValue
 
 
+def DrawImageToHelpUserPutTheirHandOverTheDevice():
+
+	pygameWindow.Draw_Image((1080/2)+5, 0)
+
+
+def HandOverDevice():
+	if not (frame.hands.is_empty > 0):
+		return True
+
+def HandleState0():
+	global programState
+
+	DrawImageToHelpUserPutTheirHandOverTheDevice()
+	if HandOverDevice():
+		programState = 1
+
+
+def HandleState1():
+	global programState
+
+	if not (frame.hands.is_empty > 0):
+		 Handle_Frame(frame)
+	else:
+		programState = 0
+
 
 		
 
@@ -133,12 +160,14 @@ while True:
 	pygameWindow.Draw_Black_Circle(0, 0)
 	pygameWindow.Split_Black_Line(0, 720/2, 1080, 720/2)
 	pygameWindow.Split_Black_Line(1080/2, 0, 1080/2, 720)
-	pygameWindow.Draw_Image((1080/2)+5, 0)
 
 	for event in pygame.event.get(): #With this for loop pygame window do not crash
 		if event.type == pygame.QUIT:
 			sys.exit(0)
-	if not (frame.hands.is_empty > 0):
-		 Handle_Frame(frame)
+
+	if programState == 0:
+		HandleState0()
+	elif programState == 1:		
+		HandleState1()
 		 
 	pygameWindow.Reveal()
