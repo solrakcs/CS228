@@ -65,11 +65,11 @@ def Handle_Bone(finger, b):
 	base = bone.prev_joint
 	tip = bone.next_joint
 	Handle_Vector_From_Leap(base)
-	pygameXBase = Scale(x, xMin, xMax, 0, 1080)
-	pygameYBase = Scale(y, yMin, yMax, 0, 720)
+	pygameXBase = Scale(x, xMin, xMax, 0, 1080/2)
+	pygameYBase = Scale(y, yMin, yMax, 0, 720/2)
 	Handle_Vector_From_Leap(tip)
-	pygameXTip = Scale(x, xMin, xMax, 0, 1080)
-	pygameYTip = Scale(y, yMin, yMax, 0, 720)
+	pygameXTip = Scale(x, xMin, xMax, 0, 1080/2)
+	pygameYTip = Scale(y, yMin, yMax, 0, 720/2)
 	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
 
 	#if ((b==0) or (b==3)):
@@ -130,6 +130,11 @@ while True:
 
 	pygameWindow.Prepare(pygameWindow)
 	frame = controller.frame()
+	pygameWindow.Draw_Black_Circle(0, 0)
+	pygameWindow.Split_Black_Line(0, 720/2, 1080, 720/2)
+	pygameWindow.Split_Black_Line(1080/2, 0, 1080/2, 720)
+	pygameWindow.Draw_Image((1080/2)+5, 0)
+
 	for event in pygame.event.get(): #With this for loop pygame window do not crash
 		if event.type == pygame.QUIT:
 			sys.exit(0)
