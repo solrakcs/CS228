@@ -6,6 +6,8 @@ import random
 import pygame
 import pickle
 import numpy as np
+import threading 
+
 
 
 x = 540
@@ -20,9 +22,11 @@ yMax = -1000.0
 
 programState = 0
 
+counter = 0
 
-#clf = pickle.load(open('userData/classifier.p','rb'))
-#testData = np.zeros((1,30),dtype='f')
+
+clf = pickle.load(open('userData/classifier.p','rb'))
+testData = np.zeros((1,30),dtype='f')
 
 
 
@@ -38,6 +42,27 @@ def CenterData(X):
 	meanValue = allZCoordinates.mean()
 	X[0,2::3] = allZCoordinates - meanValue
 	return X
+
+
+def UserSignCorrectly():
+	global testData, counter
+
+	testData = CenterData(testData)
+	predictedClass = clf.Predict(testData)
+	print(predictedClass)
+	if predictedClass == 1:
+		counter = counter + 1
+		print(predictedClass)
+
+
+def HandleState3():
+	global counter
+	background = pygame.image.load('background.png')
+	pygameWindow.Draw_Image(background, 550, 15)
+	task_completed = pygame.image.load('task_completed.png')
+	pygameWindow.Draw_Image(task_completed, (1080/1.7), 90)
+	counter = 0
+	CheckIfCentered()
 
 
 def Handle_Vector_From_Leap(v):
@@ -62,6 +87,8 @@ def Handle_Bone(finger, b):
 	global base, tip
 	global testData
 	global k
+	global pygameXBase, pygameYBase, pygameXTip, pygameYTip
+	global programState
 
 	bone = finger.bone(b)
 	base = bone.prev_joint
@@ -72,13 +99,17 @@ def Handle_Bone(finger, b):
 	Handle_Vector_From_Leap(tip)
 	pygameXTip = Scale(x, xMin, xMax, 0, 1080/2)
 	pygameYTip = Scale(y, yMin, yMax, 0, 720/2)
-	pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b)
+	if(programState == 1):
+		pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b, 0)
+	elif(programState == 2):
+		pygameWindow.Draw_Black_Line(pygameXBase, pygameYBase, pygameXTip, pygameYTip, b, 1)
 
-	#if ((b==0) or (b==3)):
-	#	testData[0,k] = tip[0]
-	#	testData[0,k+1] = tip[1]
-	#	testData[0,k+2] = tip[2]
-	#	k = k + 3
+
+	if ((b==0) or (b==3)):
+		testData[0,k] = tip[0]
+		testData[0,k+1] = tip[1]
+		testData[0,k+2] = tip[2]
+		k = k + 3
 	
 
 
@@ -92,6 +123,8 @@ def Handle_Finger(finger):
 def Handle_Frame(frame):
 	global testData
 	global k
+	global counter 
+	global programState
 
 	k = 0
 
@@ -101,10 +134,19 @@ def Handle_Frame(frame):
 		finger = fingers[i]
 		Handle_Finger(finger)
 
-	##print(testData)
-	#testData = CenterData(testData)
-	#predictedClass = clf.Predict(testData)
-	#print(predictedClass)
+	if(programState == 2):
+
+		background = pygame.image.load('background.png')
+		pygameWindow.Draw_Image(background, 550, 0)
+		number1 = pygame.image.load('Number1.png')
+		pygameWindow.Draw_Image(number1, 540, 50)
+		Capture1 = pygame.image.load('Captura1.png')
+		pygameWindow.Draw_Image(Capture1, 550, 370)
+
+		UserSignCorrectly()
+		if counter == 10:
+			programState = 3
+
 
 
 def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
@@ -120,13 +162,24 @@ def Scale(value, minValue, maxValue, newMinValue, newMaxValue):
 
 
 def DrawImageToHelpUserPutTheirHandOverTheDevice():
-
-	pygameWindow.Draw_Image((1080/2)+5, 0)
+	userInit = pygame.image.load('userInit.png')
+	pygameWindow.Draw_Image(userInit, (1080/2)+5, 0)
 
 
 def HandOverDevice():
 	if not (frame.hands.is_empty > 0):
 		return True
+
+
+def CheckIfCentered():
+	global pygameXBase, pygameYBase
+	global programState
+
+	if pygameXBase >= 150 and pygameXBase <= 400 and pygameYBase >= 120 and pygameYBase <= 200:
+		programState = 2
+	else:
+		programState = 1
+
 
 def HandleState0():
 	global programState
@@ -140,12 +193,22 @@ def HandleState1():
 	global programState
 
 	if not (frame.hands.is_empty > 0):
+		 userCenter = pygame.image.load('userCenter.png')
+		 pygameWindow.Draw_Image(userCenter, (1080/1.7), 90)
 		 Handle_Frame(frame)
+
 	else:
 		programState = 0
 
 
-		
+def HandleState2():
+	global programState, frame
+	
+	if not (frame.hands.is_empty > 0):
+		Handle_Frame(frame)
+	else:
+		programState = 0
+
 
 pygameWindow = PYGAME_WINDOW()
 
@@ -169,5 +232,10 @@ while True:
 		HandleState0()
 	elif programState == 1:		
 		HandleState1()
+		CheckIfCentered()
+	elif programState == 2:
+		HandleState2()
+	elif programState == 3:
+		HandleState3()
 		 
 	pygameWindow.Reveal()
