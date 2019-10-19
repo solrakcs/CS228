@@ -45,7 +45,14 @@ def CenterData(X):
 
 
 def UserSignCorrectly():
-	global testData, counter
+	global testData, counter, database, showed1
+
+	userRecord = database[userName]
+	userRecord['digit1attempted'] = 0
+	
+	if showed1 == True:
+		userRecord['digit1attempted'] = userRecord['digit1attempted'] + 1
+		print(userRecord['digit1attempted'])
 
 	testData = CenterData(testData)
 	predictedClass = clf.Predict(testData)
@@ -125,6 +132,7 @@ def Handle_Frame(frame):
 	global k
 	global counter 
 	global programState
+	global showed1
 
 	k = 0
 
@@ -142,6 +150,7 @@ def Handle_Frame(frame):
 		pygameWindow.Draw_Image(number1, 540, 50)
 		Capture1 = pygame.image.load('Captura1.png')
 		pygameWindow.Draw_Image(Capture1, 550, 370)
+		showed1 = True
 
 		UserSignCorrectly()
 		if counter == 10:
@@ -215,6 +224,27 @@ pygameWindow = PYGAME_WINDOW()
 print(pygameWindow)
 
 controller = Leap.Controller()
+
+
+#DATABASE DICT
+
+database = pickle.load(open('userData/database.p','rb'))
+
+pickle.dump(database,open('userData/database.p','wb')) #First time
+
+userName = raw_input('Please enter your name: ')
+if userName in database:
+	print('Welcome back ' + userName + '.')
+	database[userName]['login'] += 1
+else:
+	database[userName] = {'login' : 1}
+	print('Welcome ' + userName + '.')
+print(database)
+
+
+pickle.dump(database,open('userData/database.p','wb')) #Second time
+
+#END DATABASE DICT
 
 while True:
 
